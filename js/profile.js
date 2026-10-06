@@ -105,7 +105,7 @@ I enjoy building practical, hands-on projects that solve real-world problems —
         "Uses exploratory data analysis to understand relationships in the data.",
         "Presents findings through visual and tabular analysis.",
       ],
-      github: "https://github.com/abhiprayakuthota1-pixel/Seasonal-Agriculture-Performance-Analysis",
+      github: "https://github.com/abhiprayakuthota1-pixel/Seasonal-Agriculture-Performance-Analysis-1",
       keywords: ["agriculture", "seasonal", "farming", "crop", "agri", "agricultural performance"],
     },
     {
