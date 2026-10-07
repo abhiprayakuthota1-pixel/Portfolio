@@ -1,603 +1,693 @@
 /**
- * main.js — Portfolio rendering and interactions.
- * Reads from PROFILE (js/profile.js) to render all dynamic sections.
- * Handles: nav, scroll reveal, skills, projects, education,
- *          achievements, certifications, coding profiles, footer year.
+ * main.js — Interactive Portfolio Controller & Renderer
+ * Connects directly to PROFILE (js/profile.js).
+ * NO video, NO audio, pure responsive client-side JavaScript.
  */
+
+document.addEventListener('DOMContentLoaded', () => {
+  initDocumentMeta();
+  initScrollProgress();
+  initNavigation();
+  initHeroInteractions();
+  initDeveloperIdCard();
+  initSkillsPeriodicSystem();
+  initProjectsShowcase();
+  initCertifications();
+  initEducationTimeline();
+  initAchievements();
+  initCodingProfiles();
+  initDocumentHub();
+  initContactInteractions();
+  initScrollReveal();
+  initSmoothScroll();
+});
 
 /* ============================================================
-   UTILITIES
+   1. DOCUMENT META
    ============================================================ */
-
-/**
- * Create an element with optional class, attributes, and inner HTML.
- * Named makeEl to avoid any accidental shadowing.
- * @param {string} tag
- * @param {Object} options - { className, attrs, html, text }
- * @returns {HTMLElement}
- */
-function makeEl(tag, options = {}) {
-  const elem = document.createElement(tag);
-  if (options.className) elem.className = options.className;
-  if (options.html)      elem.innerHTML = options.html;
-  if (options.text)      elem.textContent = options.text;
-  if (options.attrs) {
-    Object.entries(options.attrs).forEach(([k, v]) => elem.setAttribute(k, v));
+function initDocumentMeta() {
+  if (!window.PROFILE) return;
+  document.title = PROFILE.meta?.pageTitle || `${PROFILE.name.full} — Portfolio`;
+  const descTag = document.querySelector('meta[name="description"]');
+  if (descTag && PROFILE.meta?.description) {
+    descTag.setAttribute('content', PROFILE.meta.description);
   }
-  return elem;
 }
 
 /* ============================================================
-   1. NAVIGATION
+   2. SCROLL PROGRESS
    ============================================================ */
+function initScrollProgress() {
+  const fill = document.getElementById('scroll-progress-fill');
+  if (!fill) return;
 
-function initNav() {
-  const header  = document.getElementById('nav-header');
-  const toggle  = document.getElementById('nav-toggle');
-  const menu    = document.getElementById('nav-menu');
-  const navLinks = menu ? menu.querySelectorAll('.nav-link') : [];
-
-  if (!header || !toggle || !menu) return;
-
-  // ---- Scroll: add shadow class ----
-  const onScroll = () => {
-    header.classList.toggle('nav-scrolled', window.scrollY > 10);
-    updateActiveLink();
+  const updateProgress = () => {
+    const scrollTop = window.scrollY || document.documentElement.scrollTop;
+    const docHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+    const pct = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+    fill.style.width = `${Math.min(100, Math.max(0, pct))}%`;
   };
-  window.addEventListener('scroll', onScroll, { passive: true });
-  onScroll(); // run once on load
 
-  // ---- Hamburger toggle ----
-  toggle.addEventListener('click', () => {
-    const isOpen = menu.classList.toggle('nav-open');
-    toggle.setAttribute('aria-expanded', String(isOpen));
-    toggle.setAttribute('aria-label', isOpen ? 'Close navigation menu' : 'Open navigation menu');
-    // Prevent body scroll when menu open on mobile
-    document.body.style.overflow = isOpen ? 'hidden' : '';
-  });
+  window.addEventListener('scroll', updateProgress, { passive: true });
+  updateProgress();
+}
 
-  // Close menu when a nav link is clicked
-  navLinks.forEach(link => {
-    link.addEventListener('click', () => {
-      menu.classList.remove('nav-open');
-      toggle.setAttribute('aria-expanded', 'false');
-      toggle.setAttribute('aria-label', 'Open navigation menu');
-      document.body.style.overflow = '';
+/* ============================================================
+   3. NAVIGATION
+   ============================================================ */
+function initNavigation() {
+  const header = document.getElementById('nav-header');
+  const toggle = document.getElementById('nav-toggle');
+  const overlay = document.getElementById('mobile-nav-overlay');
+  const navLinks = document.querySelectorAll('.nav-link, .mobile-nav-link');
+  const navChatBtn = document.getElementById('nav-chat-btn');
+
+  // Header scroll appearance
+  const handleScroll = () => {
+    if (!header) return;
+    if (window.scrollY > 20) {
+      header.classList.add('nav-scrolled');
+    } else {
+      header.classList.remove('nav-scrolled');
+    }
+    updateActiveSection();
+  };
+  window.addEventListener('scroll', handleScroll, { passive: true });
+  handleScroll();
+
+  // Active section spy
+  function updateActiveSection() {
+    const sections = document.querySelectorAll('section[id]');
+    const scrollPos = window.scrollY + 120;
+    sections.forEach(sec => {
+      const top = sec.offsetTop;
+      const height = sec.offsetHeight;
+      const id = sec.getAttribute('id');
+      if (scrollPos >= top && scrollPos < top + height) {
+        navLinks.forEach(link => {
+          const href = link.getAttribute('href');
+          if (href === `#${id}`) {
+            link.classList.add('active');
+          } else {
+            link.classList.remove('active');
+          }
+        });
+      }
     });
+  }
+
+  // Mobile drawer toggle
+  if (toggle && overlay) {
+    const toggleMenu = (open) => {
+      const isOpen = typeof open === 'boolean' ? open : !overlay.classList.contains('nav-open');
+      overlay.classList.toggle('nav-open', isOpen);
+      toggle.setAttribute('aria-expanded', String(isOpen));
+      toggle.setAttribute('aria-label', isOpen ? 'Close navigation menu' : 'Open navigation menu');
+      document.body.style.overflow = isOpen ? 'hidden' : '';
+    };
+
+    toggle.addEventListener('click', () => toggleMenu());
+
+    // Close on overlay links
+    overlay.querySelectorAll('.mobile-nav-link').forEach(link => {
+      link.addEventListener('click', () => toggleMenu(false));
+    });
+
+    // Close on Escape key
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && overlay.classList.contains('nav-open')) {
+        toggleMenu(false);
+      }
+    });
+  }
+
+  // Nav Chat Button
+  if (navChatBtn) {
+    navChatBtn.addEventListener('click', () => {
+      const chatFab = document.getElementById('chat-fab');
+      if (chatFab) chatFab.click();
+    });
+  }
+}
+
+/* ============================================================
+   4. HERO INTERACTIONS (Subtle Mouse Parallax & Tilt)
+   ============================================================ */
+function initHeroInteractions() {
+  const container = document.getElementById('hero-frame-container');
+  const frame = document.getElementById('hero-frame');
+  if (!container || !frame) return;
+
+  const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (prefersReduced) return;
+
+  container.addEventListener('mousemove', (e) => {
+    const rect = container.getBoundingClientRect();
+    const x = e.clientX - rect.left - rect.width / 2;
+    const y = e.clientY - rect.top - rect.height / 2;
+    const rotateX = (-y / rect.height) * 10;
+    const rotateY = (x / rect.width) * 10;
+    frame.style.transform = `rotateX(${rotateX.toFixed(2)}deg) rotateY(${rotateY.toFixed(2)}deg)`;
   });
 
-  // Close on outside click
-  document.addEventListener('click', (e) => {
-    if (
-      menu.classList.contains('nav-open') &&
-      !menu.contains(e.target) &&
-      !toggle.contains(e.target)
-    ) {
-      menu.classList.remove('nav-open');
-      toggle.setAttribute('aria-expanded', 'false');
-      document.body.style.overflow = '';
+  container.addEventListener('mouseleave', () => {
+    frame.style.transform = 'rotateX(0deg) rotateY(0deg)';
+  });
+}
+
+/* ============================================================
+   5. DEVELOPER ID CARD (3D Interactive Flip & Dynamic Data)
+   ============================================================ */
+function initDeveloperIdCard() {
+  const card = document.getElementById('id-card-container');
+  const flipPrompt = document.getElementById('id-flip-prompt');
+  if (!card) return;
+
+  const toggleFlip = () => {
+    card.classList.toggle('is-flipped');
+    const isFlipped = card.classList.contains('is-flipped');
+    card.setAttribute('aria-pressed', String(isFlipped));
+  };
+
+  card.addEventListener('click', toggleFlip);
+  if (flipPrompt) flipPrompt.addEventListener('click', toggleFlip);
+
+  // Keyboard accessibility
+  card.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      toggleFlip();
     }
   });
 
-  // ---- "Chat with AI" nav button ----
-  const navChatBtn = document.getElementById('nav-chat-btn');
-  if (navChatBtn) {
-    navChatBtn.addEventListener('click', () => {
-      // Close mobile menu first
-      menu.classList.remove('nav-open');
-      toggle.setAttribute('aria-expanded', 'false');
-      document.body.style.overflow = '';
-      // Trigger chatbot open (chatbot.js sets up window, we just click FAB)
-      const fab = document.getElementById('chat-fab');
-      if (fab) fab.click();
-    });
-  }
+  // Dynamic back content
+  const idStudentId = document.getElementById('id-card-roll');
+  const idCgpa = document.getElementById('id-card-cgpa');
+  const idDept = document.getElementById('id-card-dept');
+  if (idStudentId) idStudentId.textContent = PROFILE.studentId || '25071A6673';
+  if (idCgpa) idCgpa.textContent = `${PROFILE.cgpa} CGPA (Year 1)`;
+  if (idDept) idDept.textContent = 'CSE – AI/ML';
+}
 
-  // ---- Active link highlighting ----
-  function updateActiveLink() {
-    const sections = document.querySelectorAll('main section[id]');
-    let currentId = '';
-    sections.forEach(sec => {
-      const top = sec.getBoundingClientRect().top;
-      if (top <= 80) currentId = sec.id;
+/* ============================================================
+   6. SKILLS — PERIODIC TABLE SYSTEM
+   ============================================================ */
+let activeCategory = 'all';
+
+function initSkillsPeriodicSystem() {
+  const gridContainer = document.getElementById('skills-periodic-grid');
+  const filterButtons = document.querySelectorAll('.skills-filter-btn');
+  if (!gridContainer || !PROFILE.skillsData) return;
+
+  // Render elements
+  const renderElements = (category) => {
+    gridContainer.innerHTML = '';
+    const filtered = category === 'all' 
+      ? PROFILE.skillsData 
+      : PROFILE.skillsData.filter(s => s.category === category);
+
+    filtered.forEach((skill, idx) => {
+      const tile = document.createElement('button');
+      tile.className = 'element-tile reveal';
+      tile.style.transitionDelay = `${idx * 0.03}s`;
+      tile.setAttribute('type', 'button');
+      tile.setAttribute('aria-label', `Skill: ${skill.name} (${skill.categoryName})`);
+      tile.dataset.symbol = skill.symbol;
+
+      let dotClass = 'dot-tools';
+      if (skill.category === 'programming') dotClass = 'dot-programming';
+      else if (skill.category === 'core') dotClass = 'dot-core';
+
+      tile.innerHTML = `
+        <div class="element-top">
+          <span class="element-num">${skill.number}</span>
+          <span class="element-category-dot ${dotClass}" aria-hidden="true"></span>
+        </div>
+        <div class="element-symbol">${skill.symbol}</div>
+        <div class="element-name" title="${skill.name}">${skill.name}</div>
+      `;
+
+      tile.addEventListener('click', () => {
+        document.querySelectorAll('.element-tile').forEach(t => t.classList.remove('is-selected'));
+        tile.classList.add('is-selected');
+        updateSkillInspector(skill);
+      });
+
+      gridContainer.appendChild(tile);
     });
-    navLinks.forEach(link => {
-      const href = link.getAttribute('href');
-      link.classList.toggle('active', href === `#${currentId}`);
+
+    // Select the first tile by default
+    if (filtered.length > 0) {
+      const firstTile = gridContainer.querySelector('.element-tile');
+      if (firstTile) {
+        firstTile.classList.add('is-selected');
+        updateSkillInspector(filtered[0]);
+      }
+    }
+
+    // Trigger reveal visibility for newly added items
+    requestAnimationFrame(() => {
+      gridContainer.querySelectorAll('.reveal').forEach(el => el.classList.add('is-visible'));
+    });
+  };
+
+  // Filter click handling
+  filterButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      filterButtons.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      activeCategory = btn.dataset.category || 'all';
+      renderElements(activeCategory);
+    });
+  });
+
+  // Initial render
+  renderElements('all');
+}
+
+function updateSkillInspector(skill) {
+  const symbolEl = document.getElementById('inspector-symbol');
+  const titleEl = document.getElementById('inspector-title');
+  const categoryEl = document.getElementById('inspector-category');
+  const bodyEl = document.getElementById('inspector-body');
+  const tagsContainer = document.getElementById('inspector-tags');
+
+  if (symbolEl) symbolEl.textContent = skill.symbol;
+  if (titleEl) titleEl.textContent = skill.name;
+  if (categoryEl) categoryEl.textContent = `${skill.categoryName} · Atomic No. ${skill.number}`;
+  if (bodyEl) bodyEl.textContent = skill.description;
+
+  if (tagsContainer) {
+    tagsContainer.innerHTML = '';
+    (skill.projects || []).forEach(proj => {
+      const tag = document.createElement('span');
+      tag.className = 'tag tag-accent';
+      tag.textContent = proj;
+      tagsContainer.appendChild(tag);
     });
   }
 }
 
 /* ============================================================
-   2. SCROLL REVEAL
+   7. PROJECTS SHOWCASE (IMMERSIVE WORK SECTION)
    ============================================================ */
+function initProjectsShowcase() {
+  const container = document.getElementById('projects-showcase-container');
+  if (!container || !PROFILE.projects) return;
 
+  container.innerHTML = '';
+
+  PROFILE.projects.forEach((proj) => {
+    const article = document.createElement('article');
+    article.className = 'project-item reveal';
+    article.setAttribute('aria-label', `Project: ${proj.title}`);
+
+    // Highlights HTML
+    const highlightsHtml = proj.highlights.map(h => `
+      <li class="project-highlight-item">
+        <span class="highlight-bullet" aria-hidden="true">→</span>
+        <span>${h}</span>
+      </li>
+    `).join('');
+
+    // Tech tags HTML
+    const stackHtml = proj.technologies.map(t => `
+      <span class="tag">${t}</span>
+    `).join('');
+
+    // Pipeline / Media representation
+    let mediaHtml = '';
+    if (proj.hasVisualAsset && proj.assetImage) {
+      mediaHtml = `
+        <div class="project-visual-frame">
+          <picture>
+            <source srcset="${proj.assetImage}" type="image/webp">
+            <img 
+              src="${proj.assetImagePng || proj.assetImage}" 
+              alt="${proj.title} System Diagram" 
+              class="project-asset-img"
+              loading="lazy"
+            />
+          </picture>
+          <div class="project-visual-caption">
+            <span>${proj.assetCaption}</span>
+            <span class="tag tag-highlight">Architecture Diagram</span>
+          </div>
+        </div>
+      `;
+    } else {
+      // Illustrative UI representation
+      const stepsHtml = proj.conceptFlow.map((step, idx) => `
+        <div class="pipeline-step">
+          <div class="step-left">
+            <span class="step-num">0${idx + 1}</span>
+            <span class="step-label">${step.label}</span>
+          </div>
+          <span class="step-desc">${step.desc}</span>
+        </div>
+        ${idx < proj.conceptFlow.length - 1 ? '<div class="pipeline-arrow" aria-hidden="true">↓</div>' : ''}
+      `).join('');
+
+      mediaHtml = `
+        <div class="illustrative-ui-container">
+          <div class="illustrative-header">
+            <span class="illustrative-badge">Illustrative UI</span>
+            <span class="illustrative-status">Process Dataflow</span>
+          </div>
+          <div class="illustrative-pipeline">
+            ${stepsHtml}
+          </div>
+        </div>
+      `;
+    }
+
+    article.innerHTML = `
+      <div class="project-info-column">
+        <p class="project-index">PROJ / ${proj.index}</p>
+        <h3 class="project-heading">${proj.title}</h3>
+        <p class="project-subheading">${proj.subtitle}</p>
+        <p class="project-description">${proj.description}</p>
+        
+        <ul class="project-highlights-list">
+          ${highlightsHtml}
+        </ul>
+
+        <div class="project-stack-wrap">
+          ${stackHtml}
+        </div>
+
+        <div class="project-footer-actions">
+          <a 
+            href="${proj.github}" 
+            target="_blank" 
+            rel="noopener noreferrer" 
+            class="btn btn-primary"
+            aria-label="View ${proj.title} on GitHub (opens in new tab)"
+          >
+            View on GitHub ↗
+          </a>
+        </div>
+      </div>
+
+      <div class="project-media-column">
+        ${mediaHtml}
+      </div>
+    `;
+
+    container.appendChild(article);
+  });
+}
+
+/* ============================================================
+   8. CERTIFICATIONS
+   ============================================================ */
+function initCertifications() {
+  const container = document.getElementById('certifications-container');
+  if (!container || !PROFILE.certifications) return;
+
+  container.innerHTML = '';
+
+  PROFILE.certifications.forEach(cert => {
+    const card = document.createElement('div');
+    card.className = 'cert-card-editorial reveal';
+
+    card.innerHTML = `
+      <div>
+        <div class="cert-top-row">
+          <span class="cert-type-pill">${cert.badge}</span>
+          <span class="cert-date">${cert.date}</span>
+        </div>
+        <h3 class="cert-title">${cert.name}</h3>
+        <p class="cert-issuer-badge">${cert.issuer}</p>
+        <p class="cert-description">${cert.description}</p>
+      </div>
+      <div class="cert-actions">
+        <a 
+          href="${cert.file}" 
+          target="_blank" 
+          rel="noopener noreferrer" 
+          class="btn btn-secondary"
+          aria-label="View ${cert.name} PDF certificate in new tab"
+        >
+          View Certificate ↗
+        </a>
+        <a 
+          href="${cert.file}" 
+          download 
+          class="tag"
+          aria-label="Download ${cert.name} PDF certificate"
+        >
+          Download PDF
+        </a>
+      </div>
+    `;
+
+    container.appendChild(card);
+  });
+}
+
+/* ============================================================
+   9. EDUCATION TIMELINE
+   ============================================================ */
+function initEducationTimeline() {
+  const container = document.getElementById('education-timeline-container');
+  if (!container || !PROFILE.education) return;
+
+  container.innerHTML = '';
+
+  PROFILE.education.forEach(edu => {
+    const item = document.createElement('div');
+    item.className = `edu-timeline-item reveal ${edu.current ? 'is-current' : ''}`;
+
+    item.innerHTML = `
+      <div class="edu-time-label">
+        <span class="edu-period">${edu.period}</span>
+      </div>
+      <div class="edu-card">
+        <div class="edu-degree-header">
+          <h3 class="edu-degree-title">${edu.degree}</h3>
+          ${edu.current ? '<span class="tag tag-highlight">Current Enrollment</span>' : ''}
+        </div>
+        <p class="edu-institution-name">${edu.institution}</p>
+        <div class="edu-meta-strip">
+          <span><strong>Performance:</strong> ${edu.detail}</span>
+          <span><strong>Location:</strong> ${edu.location}</span>
+        </div>
+        <p class="edu-notes">${edu.notes}</p>
+      </div>
+    `;
+
+    container.appendChild(item);
+  });
+}
+
+/* ============================================================
+   10. ACHIEVEMENTS
+   ============================================================ */
+function initAchievements() {
+  const container = document.getElementById('achievements-container');
+  if (!container || !PROFILE.achievements) return;
+
+  container.innerHTML = '';
+
+  PROFILE.achievements.forEach(ach => {
+    const card = document.createElement('div');
+    card.className = 'achievement-card reveal';
+
+    card.innerHTML = `
+      <div class="achievement-card-top">
+        <span class="achievement-type-badge">${ach.type}</span>
+        <span class="achievement-val-badge">${ach.value}</span>
+      </div>
+      <h3 class="achievement-title">${ach.label}</h3>
+      <p class="achievement-desc">${ach.detail}</p>
+    `;
+
+    container.appendChild(card);
+  });
+}
+
+/* ============================================================
+   11. CODING PROFILES
+   ============================================================ */
+function initCodingProfiles() {
+  const container = document.getElementById('profiles-grid-container');
+  if (!container || !PROFILE.codingProfiles) return;
+
+  container.innerHTML = '';
+
+  const getPlatformIcon = (platform) => {
+    if (platform === 'GitHub') {
+      return `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>`;
+    }
+    if (platform === 'LeetCode') {
+      return `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 8l4 4-4 4M8 8l-4 4 4 4"/></svg>`;
+    }
+    return `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>`;
+  };
+
+  PROFILE.codingProfiles.forEach(prof => {
+    const card = document.createElement('div');
+    card.className = 'profile-card-editorial reveal';
+
+    card.innerHTML = `
+      <div>
+        <div class="profile-card-header">
+          <div class="profile-brand-icon" aria-hidden="true">
+            ${getPlatformIcon(prof.platform)}
+          </div>
+          <span class="tag">${prof.badge}</span>
+        </div>
+        <h3 class="profile-platform-title">${prof.platform}</h3>
+        <p class="profile-username-tag">${prof.username}</p>
+        <p class="profile-description-text">${prof.description}</p>
+      </div>
+      <div class="profile-card-footer">
+        <span class="profile-metric-pill">${prof.metric}</span>
+        ${prof.url ? `
+          <a 
+            href="${prof.url}" 
+            target="_blank" 
+            rel="noopener noreferrer" 
+            class="btn btn-secondary"
+            aria-label="Visit ${prof.platform} profile (opens in new tab)"
+          >
+            Visit Profile ↗
+          </a>
+        ` : ''}
+      </div>
+    `;
+
+    container.appendChild(card);
+  });
+}
+
+/* ============================================================
+   12. RESUME & DOCUMENT HUB
+   ============================================================ */
+function initDocumentHub() {
+  const docList = document.getElementById('doc-hub-list');
+  if (!docList) return;
+
+  const docs = [
+    {
+      title: "Akuthota Abhipray — Resume",
+      sub: "Authoritative Curriculum Vitae (PDF)",
+      file: PROFILE.resume.path,
+      type: "resume",
+    },
+    ...PROFILE.certifications.map(c => ({
+      title: c.name,
+      sub: `${c.issuer} · ${c.date}`,
+      file: c.file,
+      type: "certificate",
+    }))
+  ];
+
+  docList.innerHTML = '';
+
+  docs.forEach(doc => {
+    const item = document.createElement('div');
+    item.className = 'doc-hub-item';
+
+    item.innerHTML = `
+      <div>
+        <p class="doc-item-title">${doc.title}</p>
+        <p class="doc-item-sub">${doc.sub}</p>
+      </div>
+      <a 
+        href="${doc.file}" 
+        target="_blank" 
+        rel="noopener noreferrer" 
+        class="doc-item-link"
+        aria-label="Open ${doc.title} in new tab"
+      >
+        Open ↗
+      </a>
+    `;
+
+    docList.appendChild(item);
+  });
+}
+
+/* ============================================================
+   13. CONTACT INTERACTIONS (Copy Email with aria-live)
+   ============================================================ */
+function initContactInteractions() {
+  const copyBtn = document.getElementById('copy-email-btn');
+  const alertRegion = document.getElementById('copy-feedback-region');
+  if (!copyBtn) return;
+
+  copyBtn.addEventListener('click', async () => {
+    const email = PROFILE.contact.email;
+    try {
+      await navigator.clipboard.writeText(email);
+      const originalText = copyBtn.textContent;
+      copyBtn.textContent = 'Copied ✓';
+      copyBtn.classList.add('copied');
+      if (alertRegion) alertRegion.textContent = 'Email address copied to clipboard.';
+
+      setTimeout(() => {
+        copyBtn.textContent = originalText;
+        copyBtn.classList.remove('copied');
+        if (alertRegion) alertRegion.textContent = '';
+      }, 2500);
+    } catch (err) {
+      // Fallback
+      const input = document.createElement('input');
+      input.value = email;
+      document.body.appendChild(input);
+      input.select();
+      document.execCommand('copy');
+      document.body.removeChild(input);
+      copyBtn.textContent = 'Copied ✓';
+      setTimeout(() => { copyBtn.textContent = 'Copy Email'; }, 2500);
+    }
+  });
+}
+
+/* ============================================================
+   14. SCROLL REVEAL OBSERVER
+   ============================================================ */
 function initScrollReveal() {
   const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
   if (prefersReduced) {
-    // Make everything visible immediately
-    document.querySelectorAll('.reveal').forEach(el => {
-      el.classList.add('is-visible');
-    });
+    document.querySelectorAll('.reveal').forEach(el => el.classList.add('is-visible'));
     return;
   }
 
-  const observer = new IntersectionObserver(
-    (entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('is-visible');
-          observer.unobserve(entry.target);
-        }
-      });
-    },
-    { threshold: 0.12, rootMargin: '0px 0px -40px 0px' }
-  );
-
-  document.querySelectorAll('.reveal').forEach(elem => observer.observe(elem));
-}
-
-/* ============================================================
-   3. SKILLS RENDERING
-   ============================================================ */
-
-function renderSkills() {
-  const container = document.getElementById('skills-grid');
-  if (!container || !PROFILE.skills) return;
-
-  const groups = [
-    { label: 'Languages',           items: PROFILE.skills.languages },
-    { label: 'Concepts',            items: PROFILE.skills.concepts  },
-    { label: 'Tools & Technologies', items: PROFILE.skills.tools    },
-  ];
-
-  groups.forEach((group, index) => {
-    const card = makeEl('div', {
-      className: `skill-group reveal reveal-delay-${index + 1}`,
-    });
-
-    const labelEl = makeEl('p', {
-      className: 'skill-group-label',
-      text: group.label,
-    });
-
-    const tagsWrap = makeEl('div', { className: 'skill-tags' });
-
-    group.items.forEach(skill => {
-      const tag = makeEl('span', {
-        className: 'skill-tag',
-        text: skill,
-      });
-      tagsWrap.appendChild(tag);
-    });
-
-    card.appendChild(labelEl);
-    card.appendChild(tagsWrap);
-    container.appendChild(card);
-  });
-
-  // Re-observe newly created skill cards (they have the reveal class)
-  const skillObserver = new IntersectionObserver(
-    (entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('is-visible');
-          skillObserver.unobserve(entry.target);
-        }
-      });
-    },
-    { threshold: 0.12, rootMargin: '0px 0px -40px 0px' }
-  );
-  container.querySelectorAll('.reveal').forEach(el => skillObserver.observe(el));
-}
-
-/* ============================================================
-   4. PROJECTS RENDERING
-   ============================================================ */
-
-function renderProjects() {
-  const container = document.getElementById('projects-grid');
-  if (!container || !PROFILE.projects) return;
-
-  PROFILE.projects.forEach((project, index) => {
-    const card = makeEl('article', {
-      className: 'project-card',
-      attrs: { 'aria-label': `Project: ${project.title}` },
-    });
-
-    // Number
-    const num = makeEl('p', {
-      className: 'project-number',
-      text: `0${index + 1}`,
-    });
-
-    // Title
-    const title = makeEl('h3', {
-      className: 'project-title',
-      text: project.title,
-    });
-
-    // Subtitle
-    const subtitle = makeEl('p', {
-      className: 'project-subtitle',
-      text: project.subtitle,
-    });
-
-    // Description
-    const desc = makeEl('p', {
-      className: 'project-desc',
-      text: project.description,
-    });
-
-    // Highlights
-    const highlightsList = makeEl('ul', { className: 'project-highlights' });
-    // Show up to 3 highlights to keep cards compact
-    project.highlights.slice(0, 3).forEach(h => {
-      const item = makeEl('li', {
-        className: 'project-highlight',
-        text: h,
-      });
-      highlightsList.appendChild(item);
-    });
-
-    // Technologies
-    const techsWrap = makeEl('div', { className: 'project-techs' });
-    project.technologies.forEach(tech => {
-      const tag = makeEl('span', { className: 'project-tech', text: tech });
-      techsWrap.appendChild(tag);
-    });
-
-    // Top section
-    const top = makeEl('div', { className: 'project-card-top' });
-    top.appendChild(num);
-    top.appendChild(title);
-    top.appendChild(subtitle);
-    top.appendChild(desc);
-    top.appendChild(highlightsList);
-    top.appendChild(techsWrap);
-
-    // Footer: GitHub link
-    const footer = makeEl('div', { className: 'project-card-footer' });
-    const ghLink = makeEl('a', {
-      className: 'project-github-link',
-      text: '↗ View on GitHub',
-      attrs: {
-        href: project.github,
-        target: '_blank',
-        rel: 'noopener noreferrer',
-        'aria-label': `View ${project.title} on GitHub (opens in new tab)`,
-      },
-    });
-    footer.appendChild(ghLink);
-
-    card.appendChild(top);
-    card.appendChild(footer);
-
-    // Apply stagger delay via inline style — avoids race condition on in-viewport load.
-    card.style.transitionDelay = `${index * 0.08}s`;
-
-    container.appendChild(card);
-  });
-
-  // Single observer for all project cards.
-  const projectObserver = new IntersectionObserver(
-    (entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('is-visible');
-          // Clear delay after entrance so hover transitions aren't delayed.
-          entry.target.addEventListener('transitionend', () => {
-            entry.target.style.transitionDelay = '';
-          }, { once: true });
-          projectObserver.unobserve(entry.target);
-        }
-      });
-    },
-    { threshold: 0.1 }
-  );
-
-  container.querySelectorAll('.project-card').forEach(card => projectObserver.observe(card));
-}
-
-/* ============================================================
-   5. EDUCATION RENDERING
-   ============================================================ */
-
-function renderEducation() {
-  const container = document.getElementById('education-timeline');
-  if (!container || !PROFILE.education) return;
-
-  PROFILE.education.forEach((edu, index) => {
-    const item = makeEl('div', {
-      className: `education-item${edu.current ? ' current' : ''}`,
-    });
-
-    // Period
-    const period = makeEl('p', {
-      className: 'education-period',
-      text: edu.period,
-    });
-
-    // Degree + current badge
-    const degreeWrap = makeEl('div', {});
-    const degree = makeEl('h3', {
-      className: 'education-degree',
-    });
-    degree.textContent = edu.degree;
-    if (edu.current) {
-      const badge = makeEl('span', {
-        className: 'education-current-badge',
-        text: 'Current',
-        attrs: { 'aria-label': 'Currently enrolled' },
-      });
-      degree.appendChild(badge);
-    }
-    degreeWrap.appendChild(degree);
-
-    // Institution
-    const institution = makeEl('p', {
-      className: 'education-institution',
-      text: edu.institution,
-    });
-
-    // Detail (CGPA / percentage)
-    const detail = makeEl('span', {
-      className: 'education-detail',
-      text: edu.detail,
-    });
-
-    item.appendChild(period);
-    item.appendChild(degreeWrap);
-    item.appendChild(institution);
-    item.appendChild(detail);
-    container.appendChild(item);
-
-    // Stagger reveal via IntersectionObserver
-    const obs = new IntersectionObserver(
-      (entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            setTimeout(() => {
-              entry.target.classList.add('is-visible');
-            }, index * 120);
-            obs.unobserve(entry.target);
-          }
-        });
-      },
-      { threshold: 0.1 }
-    );
-    obs.observe(item);
-  });
-}
-
-/* ============================================================
-   6. ACHIEVEMENTS RENDERING
-   ============================================================ */
-
-function renderAchievements() {
-  const listContainer = document.getElementById('achievements-list');
-  const certContainer = document.getElementById('certifications-list');
-
-  // ---- Achievements ----
-  if (listContainer && PROFILE.achievements) {
-    PROFILE.achievements.forEach(item => {
-      const li = makeEl('li', {
-        className: 'achievement-item',
-        attrs: { 'data-type': item.type },
-      });
-
-      const dot = makeEl('span', {
-        className: 'achievement-type-dot',
-        attrs: { 'aria-hidden': 'true' },
-      });
-
-      const textWrap = makeEl('div', {});
-      const label = makeEl('p', { className: 'achievement-label', text: item.label });
-      const value = makeEl('p', { className: 'achievement-value', text: item.value });
-      textWrap.appendChild(label);
-      textWrap.appendChild(value);
-
-      li.appendChild(dot);
-      li.appendChild(textWrap);
-      listContainer.appendChild(li);
-    });
-  }
-
-  // ---- Certifications ----
-  if (certContainer && PROFILE.certifications) {
-    PROFILE.certifications.forEach(cert => {
-      const card = makeEl('div', { className: 'cert-card' });
-
-      const name   = makeEl('p', { className: 'cert-name',   text: cert.name   });
-      const issuer = makeEl('p', { className: 'cert-issuer', text: cert.issuer });
-
-      card.appendChild(name);
-      card.appendChild(issuer);
-
-      // View Certificate link — only rendered when a file path is present in PROFILE
-      if (cert.file) {
-        const link = makeEl('a', {
-          className: 'cert-link',
-          text: 'View Certificate ↗',
-          attrs: {
-            href: cert.file,
-            target: '_blank',
-            rel: 'noopener noreferrer',
-            'aria-label': `View ${cert.name} certificate (opens in new tab)`,
-          },
-        });
-        card.appendChild(link);
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('is-visible');
+        observer.unobserve(entry.target);
       }
-
-      certContainer.appendChild(card);
     });
-  }
+  }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 }
 
 /* ============================================================
-   7. CODING PROFILES RENDERING
+   15. SMOOTH SCROLL FOR IN-PAGE ANCHORS
    ============================================================ */
-
-function renderProfiles() {
-  const container = document.getElementById('profiles-grid');
-  if (!container || !PROFILE.codingProfiles) return;
-
-  PROFILE.codingProfiles.forEach((profile, index) => {
-    const isLink = !!profile.url;
-
-    const card = makeEl(isLink ? 'a' : 'div', {
-      className: `profile-card${isLink ? '' : ' profile-card-static'}`,
-    });
-
-    if (isLink) {
-      card.setAttribute('href', profile.url);
-      card.setAttribute('target', '_blank');
-      card.setAttribute('rel', 'noopener noreferrer');
-      card.setAttribute(
-        'aria-label',
-        `Visit ${profile.platform} profile (opens in new tab)`
-      );
-    }
-
-    const platformName = makeEl('p', {
-      className: 'profile-platform-name',
-      text: profile.platform,
-    });
-
-    const username = makeEl('p', {
-      className: 'profile-username',
-      text: profile.username,
-    });
-
-    const desc = makeEl('p', {
-      className: 'profile-desc',
-      text: profile.description,
-    });
-
-    card.appendChild(platformName);
-    card.appendChild(username);
-    card.appendChild(desc);
-
-    if (isLink) {
-      const visitLabel = makeEl('span', {
-        className: 'profile-visit-label',
-        text: 'Visit Profile →',
-        attrs: { 'aria-hidden': 'true' },
-      });
-      card.appendChild(visitLabel);
-    }
-
-    // Apply stagger delay via inline style so transition is CSS-driven, not timer-driven.
-    // This avoids the race where cards stay invisible if the section is already in the viewport.
-    card.style.transitionDelay = `${index * 0.1}s`;
-
-    container.appendChild(card);
-  });
-
-  // Single observer for all profile cards — no setTimeout race condition.
-  const profileObserver = new IntersectionObserver(
-    (entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('is-visible');
-          // Clear the stagger delay after it plays so hover transitions aren't delayed.
-          entry.target.addEventListener('transitionend', () => {
-            entry.target.style.transitionDelay = '';
-          }, { once: true });
-          profileObserver.unobserve(entry.target);
-        }
-      });
-    },
-    { threshold: 0.1 }
-  );
-
-  container.querySelectorAll('.profile-card').forEach(card => profileObserver.observe(card));
-}
-
-/* ============================================================
-   8. ABOUT PHOTO — graceful handling
-   ============================================================ */
-
-function initAboutPhoto() {
-  const frame = document.getElementById('about-photo-frame');
-  if (!frame) return;
-
-  // Try to load a profile image from assets/images/
-  // Supports both .jpg and .png — checks png first since that's the actual file.
-  const imgSrc = 'assets/images/profile.png';
-  const img = new Image();
-
-  img.onload = () => {
-    // Image exists — replace placeholder with the real photo
-    frame.innerHTML = '';
-    img.alt = `${PROFILE.name.full} — profile photo`;
-    img.className = 'about-profile-img';
-    frame.appendChild(img);
-  };
-
-  img.onerror = () => {
-    // Image not available — keep the initials placeholder (already in HTML)
-  };
-
-  img.src = imgSrc;
-}
-
-/* ============================================================
-   9. FOOTER YEAR
-   ============================================================ */
-
-function setFooterYear() {
-  const el = document.getElementById('footer-year');
-  if (el) el.textContent = new Date().getFullYear();
-}
-
-/* ============================================================
-   10. SMOOTH SCROLL for anchor links
-       (Polyfill for browsers that don't support CSS scroll-behavior)
-   ============================================================ */
-
 function initSmoothScroll() {
   document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', (e) => {
-      const targetId = anchor.getAttribute('href').slice(1);
-      const target = document.getElementById(targetId);
-      if (!target) return;
-      e.preventDefault();
+    anchor.addEventListener('click', function(e) {
+      const targetId = this.getAttribute('href').slice(1);
+      if (!targetId) return;
+      const targetEl = document.getElementById(targetId);
+      if (targetEl) {
+        e.preventDefault();
+        const headerOffset = 70;
+        const elementPosition = targetEl.getBoundingClientRect().top;
+        const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
 
-      const navHeight = document.getElementById('nav-header')?.offsetHeight || 64;
-      const top = target.getBoundingClientRect().top + window.scrollY - navHeight - 8;
-
-      window.scrollTo({ top, behavior: 'smooth' });
+        window.scrollTo({
+          top: offsetPosition,
+          behavior: 'smooth'
+        });
+      }
     });
   });
 }
-
-/* ============================================================
-   11. DOCUMENT META (from PROFILE)
-   ============================================================ */
-
-function setDocumentMeta() {
-  if (!PROFILE.meta) return;
-  document.title = PROFILE.meta.pageTitle;
-  const metaDesc = document.querySelector('meta[name="description"]');
-  if (metaDesc) metaDesc.setAttribute('content', PROFILE.meta.description);
-}
-
-/* ============================================================
-   12. INIT — run everything on DOMContentLoaded
-   ============================================================ */
-
-document.addEventListener('DOMContentLoaded', () => {
-  setDocumentMeta();
-  initNav();
-  initScrollReveal();
-  renderSkills();
-  renderProjects();
-  renderEducation();
-  renderAchievements();
-  renderProfiles();
-  initAboutPhoto();
-  setFooterYear();
-  initSmoothScroll();
-});

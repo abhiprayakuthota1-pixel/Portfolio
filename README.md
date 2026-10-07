@@ -1,145 +1,105 @@
-# Abhipray Portfolio
+# Akuthota Abhipray — Personal Portfolio Website
 
-Personal portfolio website for **Akuthota Abhipray** — B.Tech CSE (AI/ML & IoT) student at VNR VJIET, Hyderabad.
+Editorial, minimal, and high-craft creative developer portfolio for **Akuthota Abhipray** — B.Tech CSE – AI/ML student at VNR Vignana Jyothi Institute of Engineering & Technology (VNR VJIET), Hyderabad.
 
 ---
 
 ## Overview
 
-A professional, minimal, black-and-white portfolio website built with plain HTML, CSS, and vanilla JavaScript. No frameworks, no build tools, no backend — just open `index.html` in a browser and it works.
+A premium Awwwards-level creative developer portfolio inspired by editorial design, Swiss typography, and physical paper textures. Built with vanilla HTML5, CSS3, and JavaScript — zero heavy build chains, lightning fast, accessible, and completely offline-capable.
+
+**Key Design Characteristics:**
+- **Warm Paper & Charcoal Palette** — warm off-white canvas with deep charcoal and editorial ink accents.
+- **Pure Image-Based Experience** — NO video, NO audio, NO media players, NO sound effects.
+- **Authentic Assets** — real photographs, official certificates, and verified project repository links.
+- **Periodic Table Skill System** — interactive chemical element matrix with dynamic inspector card.
+- **3D Developer ID Card** — interactive front/back badge with mouse tilt and keyboard accessibility.
+- **Immersive Project Showcase** — real infographics and illustrative process dataflows.
+- **Rule-Based AI Assistant** — context-aware chat assistant grounded strictly in verified profile data.
 
 ---
 
-## Features
+## Authoritative Information
 
-- **Editorial black & white design** — clean typography, generous whitespace, strong visual hierarchy
-- **Fully responsive** — works on desktop (1440px+), laptop (1024px), tablet (768px), and mobile (375px+)
-- **Dynamic rendering** — all personal data is stored in `js/profile.js` (single source of truth) and rendered into the page by `js/main.js`
-- **Scroll reveal animations** — sections animate in as you scroll; respects `prefers-reduced-motion`
-- **Responsive navigation** — sticky nav with hamburger menu on mobile, active link highlighting
-- **All sections included:**
-  - Hero with name, tagline, and CTA buttons
-  - About with profile photo support (graceful fallback if photo not present)
-  - Skills (Languages, Concepts, Tools & Technologies)
-  - Projects (3 selected projects with highlights, tech stack, GitHub links)
-  - Education timeline (B.Tech → Class XII → Class X)
-  - Achievements & participation
-  - Certifications & workshops
-  - Coding profiles (GitHub, LeetCode, CodeChef)
-  - Resume (view + download)
-  - Contact (email, phone, LinkedIn, GitHub, location)
-- **AI chat assistant** — floating chatbot button on every page
+- **Name:** Akuthota Abhipray
+- **Role:** Computer Science Student · AI/ML
+- **Degree:** B.Tech in CSE – AI/ML (Class of 2029)
+- **Institution:** VNR Vignana Jyothi Institute of Engineering & Technology (VNR VJIET), Hyderabad
+- **Academic Performance:** 9.38 CGPA (Year 1)
+- **Email:** [25071A6673@vnrvjiet.in](mailto:25071A6673@vnrvjiet.in)
+- **Phone:** +91 72071 45235
+- **Location:** Hyderabad, Telangana, India
 
 ---
 
-## Technologies Used
+## Selected Projects & Repositories
 
-- HTML5 (semantic)
-- CSS3 (custom properties, CSS Grid, Flexbox, responsive)
-- Vanilla JavaScript (ES6+)
-- Google Fonts: Inter + DM Serif Display
-
-No npm, Node.js, React, or any build system required.
+| # | Project | Description | Repository |
+|---|---|---|---|
+| 01 | **GrainGuard AI** | Multimodal early-warning decision-support system for stored grain using acoustic inference (Librosa, Random Forest, Streamlit). | [GrainGuard-AI](https://github.com/abhiprayakuthota1-pixel/GrainGuard-AI) |
+| 02 | **Seasonal Agriculture Performance Analysis** | Exploratory data analysis uncovering crop performance variations across seasonal cycles. | [Seasonal-Agriculture-Performance-Analysis-1](https://github.com/abhiprayakuthota1-pixel/Seasonal-Agriculture-Performance-Analysis-1) |
+| 03 | **Car Market Trends Analysis** | Exploratory vehicle market data analysis evaluating pricing and depreciation drivers using CarDekho data. | [Car-Market-Trends-Analysis](https://github.com/abhiprayakuthota1-pixel/Car-Market-Trends-Analysis) |
 
 ---
 
-## Project Structure
+## Coding & Professional Profiles
+
+- **GitHub:** [abhiprayakuthota1-pixel](https://github.com/abhiprayakuthota1-pixel)
+- **LinkedIn:** [akuthota-abhipray](https://www.linkedin.com/in/akuthota-abhipray-38a91638b)
+- **LeetCode:** [aDF0DRiCZl](https://leetcode.com/u/aDF0DRiCZl)
+- **CodeChef:** Rating 840
+
+---
+
+## Certifications & Documents
+
+- **Resume:** `assets/resume.pdf` (and `assets/resume/resume.pdf`)
+- **Kaggle Python Certification:** `assets/certificates/Kaggle-Python.pdf` (Completed March 8, 2026)
+- **AI Agents Workshop:** `assets/certificates/AI-Agents-Workshop.pdf` (CONVERGENCE 2K25, VNR VJIET)
+- **Webcraft Workshop:** `assets/certificates/Webcraft-Workshop.pdf` (CONVERGENCE 2K25, VNR VJIET)
+
+---
+
+## Directory Architecture
 
 ```
-portfolio/
+abhipray-portfolio/
 │
-├── index.html              # Main page — all sections
+├── index.html                   # Semantic HTML5 markup for all sections
 │
 ├── css/
-│   └── style.css           # Complete design system & responsive styles
+│   └── style.css                # Editorial typography, periodic grid, 3D card & responsive design
 │
 ├── js/
-│   ├── profile.js          # Single source of truth for all personal data
-│   ├── main.js             # Dynamic rendering + nav + scroll + interactions
-│   └── chatbot.js          # Rule-based chat assistant
+│   ├── profile.js               # Central single source of truth for all data
+│   ├── main.js                  # DOM renderer, scroll reveal, 3D ID card flip, periodic inspector
+│   └── chatbot.js               # Intelligent rule-based NLP assistant
 │
 ├── assets/
-│   ├── resume.pdf          # Place your resume PDF here
+│   ├── resume.pdf               # Authoritative resume PDF
+│   ├── resume/
+│   │   └── resume.pdf           # Stable mirror path
+│   ├── certificates/
+│   │   ├── Kaggle-Python.pdf
+│   │   ├── AI-Agents-Workshop.pdf
+│   │   └── Webcraft-Workshop.pdf
 │   └── images/
-│       └── profile.png     # Profile photo (PNG format)
+│       ├── profile.png          # High-resolution original portrait
+│       ├── profile.webp         # Optimized WebP portrait
+│       ├── grainguard-comparison.webp  # GrainGuard AI system diagram
+│       └── kaggle-python-cert.webp     # Kaggle certificate preview
 │
-├── README.md
-└── .gitignore
+└── README.md
 ```
 
 ---
 
-## Chatbot
+## Running Locally
 
-The portfolio includes a built-in rule-based chat assistant accessible via the floating button on the bottom-right of every page.
+Simply open `index.html` in any modern web browser. No compilation, node modules, or local server required.
 
-**How it works:**
-- User input is normalised (lowercased, trimmed, punctuation removed)
-- Intent is detected by matching against keyword groups
-- Fuzzy project matching handles variations like "grain guard", "grainguard", "GrainGuard AI"
-- All responses are generated from `PROFILE` data in `js/profile.js` — no information is invented
-- If a question cannot be answered from the profile, it responds with a safe fallback message
-
-**Supported intents:** greeting, about, skills, projects, specific project details, education, CGPA, achievements, certifications, GitHub, LeetCode, CodeChef, coding profiles, resume, contact, location, help, and unknown fallback.
-
-**Future extensibility:** The `getBotReply(message)` function in `chatbot.js` is the single entry point. To connect an external LLM or API later, replace only that function body — the rest of the UI remains unchanged.
-
----
-
-## How to Run Locally
-
-1. Clone or download the repository.
-2. Place your `resume.pdf` in `assets/resume.pdf`.
-3. Place a profile photo at `assets/images/profile.png`.
-4. Open `index.html` directly in any modern browser.
-
-No server, no npm install, no build step required.
-
-```
-# If you prefer a local server (optional):
+Optional local server:
+```bash
 python -m http.server 8000
-# Then visit http://localhost:8000
+# Open http://localhost:8000 in your browser
 ```
-
----
-
-## GitHub Pages Deployment
-
-This site is fully compatible with GitHub Pages.
-
-1. Push the repository to GitHub.
-2. Go to **Settings → Pages**.
-3. Set the source to the `main` branch, root folder (`/`).
-4. GitHub Pages will serve `index.html` automatically.
-
-All asset paths are relative — no configuration needed.
-
----
-
-## Projects Included
-
-| Project | Description |
-|---|---|
-| **GrainGuard AI** | Multimodal early-warning decision-support system for stored grain using acoustic analysis, Random Forest, and Streamlit |
-| **Seasonal Agriculture Performance Analysis** | Data analysis project exploring agricultural performance patterns across seasons |
-| **Car Market Trends Analysis** | Data analysis project identifying relationships and trends in car market data |
-
----
-
-## Assets
-
-Both assets are present in the project:
-
-| File | Path | Notes |
-|---|---|---|
-| Resume PDF | `assets/resume.pdf` | Present ✓ |
-| Profile photo | `assets/images/profile.png` | Present ✓ |
-
----
-
-## Contact
-
-- **Email:** 25071A6673@vnrvjiet.in
-- **LinkedIn:** [akuthota-abhipray](https://www.linkedin.com/in/akuthota-abhipray-38a91638b)
-- **GitHub:** [abhiprayakuthota1-pixel](https://github.com/abhiprayakuthota1-pixel)
-- **Location:** Hyderabad, Telangana, India

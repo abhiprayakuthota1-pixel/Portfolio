@@ -513,7 +513,7 @@ const RESPONSES = {
     const p = PROFILE;
     return (
       `<strong>${p.name.full}</strong> is a ${p.title} at ` +
-      `${p.education[0].institution} (${p.education[0].short}), Hyderabad.\n\n` +
+      `${p.education[0].institution}, Hyderabad.\n\n` +
       `${p.tagline}\n\n` +
       `He's interested in programming, data analysis, machine learning, ` +
       `software development, and intelligent systems.`

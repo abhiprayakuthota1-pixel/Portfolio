@@ -3,15 +3,18 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Portfolio of Akuthota Abhipray — B.Tech CSE AI/ML; student at VNR VJIET, Hyderabad. Interested in software development, data analysis, and machine learning." />
+  <meta
+    name="description"
+    content="Personal portfolio of Akuthota Abhipray — B.Tech CSE – AI/ML student at VNR VJIET, Hyderabad. Practical solutions through software, data, and intelligent systems."
+  />
   <meta name="author" content="Akuthota Abhipray" />
-  <title>Akuthota Abhipray | Computer Science Student</title>
+  <title>Akuthota Abhipray — Creative Developer &amp; AI/ML Engineer</title>
 
-  <!-- Google Fonts: Inter + DM Serif Display -->
+  <!-- Google Fonts: DM Serif Display + Inter + JetBrains Mono -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link
-    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=DM+Serif+Display:ital@0;1&display=swap"
+    href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap"
     rel="stylesheet"
   />
 
@@ -19,346 +22,617 @@
 </head>
 <body>
 
+  <!-- Screen reader skip link -->
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <!-- Top scroll progress bar -->
+  <div class="scroll-progress-bar" aria-hidden="true">
+    <div class="scroll-progress-fill" id="scroll-progress-fill"></div>
+  </div>
+
   <!-- =============================================
-       NAVIGATION
+       HEADER / NAVIGATION
   ============================================= -->
   <header class="nav-header" id="nav-header" role="banner">
-    <nav class="nav-container" aria-label="Primary navigation">
-      <a href="#hero" class="nav-brand" aria-label="Abhipray — go to top">ABHIPRAY</a>
+    <div class="nav-container">
+      <a href="#hero" class="nav-brand" aria-label="Abhipray — back to top">
+        <span class="nav-brand-title">ABHIPRAY</span>
+        <span class="nav-brand-subtitle">PORTFOLIO · 2026</span>
+      </a>
+
+      <!-- Desktop Navigation Menu -->
+      <nav class="nav-menu" role="navigation" aria-label="Primary navigation">
+        <a href="#about" class="nav-link">About</a>
+        <a href="#skills" class="nav-link">Skills</a>
+        <a href="#projects" class="nav-link">Work</a>
+        <a href="#certifications" class="nav-link">Certifications</a>
+        <a href="#education" class="nav-link">Education</a>
+        <a href="#achievements" class="nav-link">Achievements</a>
+        <a href="#profiles" class="nav-link">Profiles</a>
+        <a href="#resume" class="nav-link">Resume</a>
+        <a href="#contact" class="nav-link">Contact</a>
+      </nav>
+
+      <!-- Nav Actions (Chat launcher + Mobile toggle) -->
+      <div class="nav-actions">
+        <button
+          type="button"
+          class="nav-chat-btn"
+          id="nav-chat-btn"
+          aria-label="Open AI portfolio assistant"
+        >
+          <span class="nav-chat-dot" aria-hidden="true"></span>
+          <span>Assistant</span>
+        </button>
+      </div>
 
       <button
+        type="button"
         class="nav-toggle"
         id="nav-toggle"
         aria-label="Open navigation menu"
         aria-expanded="false"
-        aria-controls="nav-menu"
+        aria-controls="mobile-nav-overlay"
       >
         <span class="hamburger-line"></span>
         <span class="hamburger-line"></span>
         <span class="hamburger-line"></span>
       </button>
-
-      <ul class="nav-menu" id="nav-menu" role="list">
-        <li><a href="#about" class="nav-link">About</a></li>
-        <li><a href="#skills" class="nav-link">Skills</a></li>
-        <li><a href="#projects" class="nav-link">Projects</a></li>
-        <li><a href="#education" class="nav-link">Education</a></li>
-        <li><a href="#achievements" class="nav-link">Achievements</a></li>
-        <li><a href="#profiles" class="nav-link">Profiles</a></li>
-        <li><a href="#resume" class="nav-link">Resume</a></li>
-        <li>
-          <button class="nav-chat-btn" id="nav-chat-btn" aria-label="Open AI chat assistant">
-            Chat with AI
-          </button>
-        </li>
-      </ul>
-    </nav>
+    </div>
   </header>
 
+  <!-- Mobile Fullscreen Navigation Overlay -->
+  <div class="mobile-nav-overlay" id="mobile-nav-overlay" role="dialog" aria-modal="true" aria-label="Mobile Navigation">
+    <nav class="mobile-nav-menu">
+      <a href="#about" class="mobile-nav-link">About</a>
+      <a href="#skills" class="mobile-nav-link">Skills</a>
+      <a href="#projects" class="mobile-nav-link">Selected Work</a>
+      <a href="#certifications" class="mobile-nav-link">Certifications</a>
+      <a href="#education" class="mobile-nav-link">Education</a>
+      <a href="#achievements" class="mobile-nav-link">Achievements</a>
+      <a href="#profiles" class="mobile-nav-link">Coding Profiles</a>
+      <a href="#resume" class="mobile-nav-link">Resume &amp; Docs</a>
+      <a href="#contact" class="mobile-nav-link">Contact</a>
+    </nav>
+  </div>
+
+  <!-- =============================================
+       MAIN CONTENT
+  ============================================= -->
   <main id="main-content">
 
     <!-- =============================================
-         HERO SECTION
+         HERO SECTION (Image-Based Editorial Experience)
     ============================================= -->
-    <section class="hero" id="hero" aria-label="Introduction">
-      <div class="hero-inner">
-        <div class="hero-text">
-          <p class="hero-eyebrow reveal">Computer Science Student · AI/ML </p>
-          <h1 class="hero-name reveal reveal-delay-1">
-            <span class="hero-name-line">AKUTHOTA</span>
-            <span class="hero-name-line accent-word">ABHIPRAY</span>
-          </h1>
-          <p class="hero-tagline reveal reveal-delay-2">
-            I build practical solutions through software,<br class="hero-br" />
-            data, and intelligent systems.
-          </p>
-          <div class="hero-actions reveal reveal-delay-3">
-            <a href="#projects" class="btn btn-primary">View Projects</a>
-            <a
-              href="assets/resume.pdf"
-              class="btn btn-secondary"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="Open resume PDF in new tab"
-            >Resume</a>
-          </div>
+    <section class="hero" id="hero" aria-label="Hero Introduction">
+      <div class="container-wide">
+        <div class="hero-ghost-typography" aria-hidden="true">
+          AI/ML · SOFTWARE · DATA
         </div>
 
-        <!-- Profile photo in hero — visible on desktop/laptop -->
-        <div class="hero-photo-col reveal reveal-delay-2" aria-hidden="true">
-          <div class="hero-energy-art" aria-hidden="true">
-            <span class="hero-energy-streak"></span>
-            <span class="hero-energy-streak"></span>
-            <span class="hero-energy-spark"></span>
-            <span class="hero-energy-spark"></span>
-          </div>
-          <div class="hero-photo-frame">
-            <img
-              src="assets/images/profile.png"
-              alt=""
-              width="260"
-              height="260"
-              loading="eager"
-            />
-          </div>
-        </div>
+        <div class="hero-grid">
+          <!-- Hero Editorial Text -->
+          <div class="hero-content">
+            <div class="hero-technical-stamp reveal">
+              <span>SPECIALIZATION // CSE – AI/ML</span>
+              <span aria-hidden="true">·</span>
+              <span>HYDERABAD, IN</span>
+            </div>
 
-        <div class="hero-scroll-indicator" aria-hidden="true">
-          <span class="scroll-line"></span>
+            <h1 class="hero-title reveal reveal-delay-1">
+              <span class="hero-name-primary">AKUTHOTA</span>
+              <span class="hero-name-secondary">ABHIPRAY</span>
+            </h1>
+
+            <p class="hero-tagline reveal reveal-delay-2">
+              Computer Science Student · AI/ML at VNR VJIET.<br />
+              I build practical solutions through software, data, and intelligent systems.
+            </p>
+
+            <div class="hero-actions reveal reveal-delay-3">
+              <a href="#projects" class="btn btn-primary">
+                <span>View Projects</span>
+                <span class="btn-icon" aria-hidden="true">↓</span>
+              </a>
+              <a
+                href="assets/resume.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="btn btn-secondary"
+                aria-label="View Resume PDF in new tab"
+              >
+                <span>View Resume</span>
+                <span class="btn-icon" aria-hidden="true">↗</span>
+              </a>
+              <a
+                href="assets/resume.pdf"
+                download="Akuthota_Abhipray_Resume.pdf"
+                class="btn btn-secondary"
+                aria-label="Download Resume PDF"
+              >
+                <span>Download Resume</span>
+                <span class="btn-icon" aria-hidden="true">↓</span>
+              </a>
+            </div>
+
+            <!-- Technical specs strip -->
+            <div class="hero-specs-strip reveal reveal-delay-4">
+              <div class="hero-spec-item">
+                <span class="hero-spec-label">Institution</span>
+                <span class="hero-spec-value">VNR VJIET</span>
+              </div>
+              <div class="hero-spec-item">
+                <span class="hero-spec-label">Academic Status</span>
+                <span class="hero-spec-value">Year 1 · 9.38 CGPA</span>
+              </div>
+              <div class="hero-spec-item">
+                <span class="hero-spec-label">Focus Area</span>
+                <span class="hero-spec-value">ML &amp; Data Systems</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Hero Editorial Portrait Framing -->
+          <div class="hero-portrait-column reveal reveal-delay-2">
+            <div class="hero-frame-container" id="hero-frame-container">
+              <!-- Technical corner crosses -->
+              <span class="corner-cross corner-tl" aria-hidden="true">+</span>
+              <span class="corner-cross corner-tr" aria-hidden="true">+</span>
+              <span class="corner-cross corner-bl" aria-hidden="true">+</span>
+              <span class="corner-cross corner-br" aria-hidden="true">+</span>
+
+              <div class="hero-backdrop-layer" aria-hidden="true"></div>
+
+              <div class="hero-frame" id="hero-frame">
+                <div class="hero-frame-inner">
+                  <picture>
+                    <source srcset="assets/images/profile.webp" type="image/webp" />
+                    <img
+                      src="assets/images/profile.png"
+                      alt="Akuthota Abhipray — Portrait photograph"
+                      class="hero-portrait-img"
+                      width="420"
+                      height="540"
+                      loading="eager"
+                    />
+                  </picture>
+                </div>
+                <div class="hero-frame-caption">
+                  <span>ID: 25071A6673</span>
+                  <span class="hero-frame-badge">
+                    <span style="display:inline-block; width:6px; height:6px; border-radius:50%; background:#10b981;" aria-hidden="true"></span>
+                    Verified Student
+                  </span>
+                  <span>EST. 2025</span>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </section>
 
+    <hr class="section-divider" />
+
     <!-- =============================================
-         ABOUT SECTION
+         ABOUT SECTION — DEVELOPER ID CARD
     ============================================= -->
     <section class="section about-section" id="about" aria-label="About Abhipray">
       <div class="container">
         <div class="section-header reveal">
-          <span class="section-label">About</span>
-          <h2 class="section-title">Who I Am</h2>
+          <span class="section-eyebrow">01 / Profile Overview</span>
+          <h2 class="section-title">Developer Identity &amp; Background</h2>
+          <p class="section-subtitle">
+            Bridging fundamental computer science principles with practical machine learning and analytical engineering.
+          </p>
         </div>
+
         <div class="about-grid">
-          <div class="about-photo-wrap reveal reveal-delay-1">
-            <div class="about-photo-frame" id="about-photo-frame" aria-label="Profile photo of Akuthota Abhipray">
-              <img
-                src="assets/images/profile.png"
-                alt="Akuthota Abhipray — profile photo"
-                class="about-profile-img"
-                width="280"
-                height="280"
-                loading="eager"
-                onerror="this.style.display='none'; document.getElementById('about-photo-placeholder').style.display='flex';"
-              />
-              <!-- Fallback shown only if image fails to load -->
-              <div class="photo-placeholder" id="about-photo-placeholder" style="display:none;" aria-hidden="true">
-                <span class="photo-placeholder-initials">AA</span>
+          <!-- Editorial Narrative Column -->
+          <div class="about-narrative reveal reveal-delay-1">
+            <p>
+              I am a Computer Science student pursuing <strong>B.Tech in CSE – AI/ML</strong> at 
+              <strong>VNR Vignana Jyothi Institute of Engineering &amp; Technology (VNR VJIET)</strong>, Hyderabad.
+            </p>
+            <p>
+              My work centers on building software and data systems that address tangible operational problems. 
+              Whether developing early-warning decision models for stored-grain preservation, running exploratory statistical analysis on agricultural cycles, or inspecting vehicle depreciation dynamics, I prioritize measurable utility, mathematical clarity, and clean code.
+            </p>
+            <p>
+              Having achieved a <strong>9.38 CGPA</strong> in Year 1, I continuously strengthen my proficiency across data structures, object-oriented systems in C/C++, scientific computation in Python, and front-end interface engineering.
+            </p>
+
+            <div class="about-quick-facts">
+              <div class="quick-fact-item">
+                <span class="quick-fact-label">Location</span>
+                <span class="quick-fact-val">Hyderabad, Telangana, India</span>
+              </div>
+              <div class="quick-fact-item">
+                <span class="quick-fact-label">Program</span>
+                <span class="quick-fact-val">CSE – AI/ML</span>
+              </div>
+              <div class="quick-fact-item">
+                <span class="quick-fact-label">Institution</span>
+                <span class="quick-fact-val">VNR VJIET</span>
+              </div>
+              <div class="quick-fact-item">
+                <span class="quick-fact-label">Graduation Year</span>
+                <span class="quick-fact-val">2029</span>
               </div>
             </div>
           </div>
-          <div class="about-content reveal reveal-delay-2">
-            <p class="about-intro">
-              I'm a Computer Science student pursuing
-              <strong>B.Tech in CSE – AI/ML  </strong> at
-              VNR Vignana Jyothi Institute of Engineering &amp; Technology
-              (VNR VJIET), Hyderabad.
-            </p>
-            <p class="about-body">
-              I'm interested in programming, data analysis, machine learning,
-              software development, and intelligent systems. I enjoy building
-              practical, hands-on projects that solve real-world problems —
-              whether through data exploration, machine learning, or building
-              useful software tools.
-            </p>
-            <p class="about-body">
-              I'm currently in the early years of my degree and actively
-              developing my technical skills through coursework, personal
-              projects, and participation in college events.
-            </p>
-            <div class="about-meta">
-              <div class="about-meta-item">
-                <span class="about-meta-label">Location</span>
-                <span class="about-meta-value">Hyderabad, Telangana, India</span>
+
+          <!-- Interactive 3D Developer ID Card Column -->
+          <div class="id-card-wrapper reveal reveal-delay-2">
+            <div
+              class="id-card-container"
+              id="id-card-container"
+              tabindex="0"
+              role="button"
+              aria-pressed="false"
+              aria-label="Interactive Developer ID Card. Click or press Enter to flip."
+            >
+              <!-- Card Front -->
+              <div class="id-card-face id-card-face-front">
+                <div class="id-card-header">
+                  <div>
+                    <span class="id-card-sys-title">Developer ID Card</span>
+                    <h3 class="id-card-institution">VNR VJIET</h3>
+                  </div>
+                  <div class="id-chip-graphic" aria-hidden="true"></div>
+                </div>
+
+                <div class="id-card-body">
+                  <div class="id-photo-frame">
+                    <picture>
+                      <source srcset="assets/images/profile.webp" type="image/webp" />
+                      <img
+                        src="assets/images/profile.png"
+                        alt="Akuthota Abhipray ID photograph"
+                        class="id-photo-img"
+                        width="110"
+                        height="135"
+                        loading="lazy"
+                      />
+                    </picture>
+                  </div>
+                  <div class="id-details">
+                    <h4 class="id-name">Akuthota Abhipray</h4>
+                    <span class="id-role">Student · AI/ML</span>
+
+                    <div class="id-meta-row">
+                      <span class="id-meta-label">Department</span>
+                      <span class="id-meta-val" id="id-card-dept">CSE – AI/ML</span>
+                    </div>
+
+                    <div class="id-meta-row">
+                      <span class="id-meta-label">Student ID</span>
+                      <span class="id-meta-val" id="id-card-roll">25071A6673</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="id-card-footer">
+                  <div>
+                    <span class="id-meta-label">Valid Through</span>
+                    <span class="id-meta-val">Graduation 2029</span>
+                  </div>
+                  <div class="id-barcode-graphic" aria-hidden="true">
+                    *25071A6673*
+                  </div>
+                </div>
               </div>
-              <div class="about-meta-item">
-                <span class="about-meta-label">Degree</span>
-                <span class="about-meta-value">B.Tech CSE – AI/ML  </span>
-              </div>
-              <div class="about-meta-item">
-                <span class="about-meta-label">Institution</span>
-                <span class="about-meta-value">VNR VJIET</span>
+
+              <!-- Card Back -->
+              <div class="id-card-face id-card-face-back">
+                <div class="id-mag-stripe" aria-hidden="true"></div>
+
+                <div class="id-back-grid">
+                  <div class="id-back-item">
+                    <span class="id-back-label">Academic Performance</span>
+                    <span class="id-back-val" id="id-card-cgpa">9.38 CGPA (Year 1)</span>
+                  </div>
+
+                  <div class="id-back-item">
+                    <span class="id-back-label">Primary Stack</span>
+                    <span class="id-back-val">Python · C++ · Librosa · Streamlit</span>
+                  </div>
+
+                  <div class="id-back-item">
+                    <span class="id-back-label">Specialization Domains</span>
+                    <span class="id-back-val">Machine Learning · Audio AI · Exploratory Data Analysis</span>
+                  </div>
+
+                  <div class="id-back-item">
+                    <span class="id-back-label">Campus Base</span>
+                    <span class="id-back-val">VNR Vignana Jyothi Institute, Hyderabad</span>
+                  </div>
+                </div>
+
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-top:auto;">
+                  <div class="id-card-stamp">
+                    <span>✓ VERIFIED ID</span>
+                  </div>
+                  <span style="font-family:var(--font-mono); font-size:0.65rem; color:var(--text-on-dark-muted);">2025–2029</span>
+                </div>
               </div>
             </div>
+
+            <button type="button" class="id-flip-prompt" id="id-flip-prompt">
+              <span aria-hidden="true">↻</span>
+              <span>Click or press Enter to flip ID card</span>
+            </button>
           </div>
         </div>
       </div>
     </section>
 
+    <hr class="section-divider" />
+
     <!-- =============================================
-         SKILLS SECTION
+         SKILLS SECTION — PERIODIC TABLE SYSTEM
     ============================================= -->
-    <section class="section skills-section" id="skills" aria-label="Skills">
+    <section class="section skills-section" id="skills" aria-label="Skills & Technical Elements">
       <div class="container">
         <div class="section-header reveal">
-          <span class="section-label">Skills</span>
-          <h2 class="section-title">What I Work With</h2>
+          <span class="section-eyebrow">02 / Technical Chemistry</span>
+          <h2 class="section-title">The Periodic Skill System</h2>
+          <p class="section-subtitle">
+            An interactive matrix of languages, computational concepts, and analytical libraries. Select any element to inspect its role and applications.
+          </p>
         </div>
 
-        <div class="skills-grid" id="skills-grid" aria-label="Skills list">
-          <!-- Rendered dynamically by main.js from PROFILE.skills -->
+        <!-- Filter tabs -->
+        <div class="skills-filter-tabs reveal">
+          <button type="button" class="skills-filter-btn active" data-category="all">All Elements</button>
+          <button type="button" class="skills-filter-btn" data-category="programming">Programming</button>
+          <button type="button" class="skills-filter-btn" data-category="core">Core Concepts</button>
+          <button type="button" class="skills-filter-btn" data-category="tools">Tools &amp; Libraries</button>
+        </div>
+
+        <!-- Grid + Inspector layout -->
+        <div class="skills-matrix-layout">
+          <!-- Elements Grid -->
+          <div class="skills-periodic-grid" id="skills-periodic-grid" role="region" aria-label="Periodic table skills grid">
+            <!-- Dynamically populated from PROFILE.skillsData -->
+          </div>
+
+          <!-- Interactive Inspector Panel -->
+          <aside class="skill-inspector-card" id="skill-inspector-card" aria-live="polite">
+            <div class="inspector-header">
+              <div class="inspector-symbol-badge" id="inspector-symbol">Py</div>
+              <div>
+                <h3 class="inspector-title" id="inspector-title">Python</h3>
+                <p class="inspector-category" id="inspector-category">Programming · Atomic No. 01</p>
+              </div>
+            </div>
+            <p class="inspector-body" id="inspector-body">
+              Primary language for ML, audio feature analysis, and data science workflows.
+            </p>
+            <div class="inspector-applied-section">
+              <span class="inspector-applied-label">Applied in Projects</span>
+              <div class="inspector-tags" id="inspector-tags">
+                <span class="tag tag-accent">GrainGuard AI</span>
+                <span class="tag tag-accent">Seasonal Agriculture</span>
+                <span class="tag tag-accent">Car Market Trends</span>
+              </div>
+            </div>
+          </aside>
         </div>
       </div>
     </section>
 
+    <hr class="section-divider" />
+
     <!-- =============================================
-         PROJECTS SECTION
+         PROJECTS SECTION — IMMERSIVE WORK SHOWCASE
     ============================================= -->
-    <section class="section projects-section" id="projects" aria-label="Projects">
+    <section class="section projects-section" id="projects" aria-label="Selected Projects">
       <div class="container">
         <div class="section-header reveal">
-          <span class="section-label">Projects</span>
-          <h2 class="section-title">Selected Work</h2>
+          <span class="section-eyebrow">03 / Selected Work</span>
+          <h2 class="section-title">Applied Engineering &amp; Data Systems</h2>
+          <p class="section-subtitle">
+            Factual implementations spanning acoustic machine learning, agricultural performance analytics, and automotive market intelligence.
+          </p>
         </div>
 
-        <div class="projects-grid" id="projects-grid" aria-label="Project list">
-          <!-- Rendered dynamically by main.js from PROFILE.projects -->
+        <!-- Showcase Items Container -->
+        <div class="projects-showcase" id="projects-showcase-container">
+          <!-- Dynamically populated from PROFILE.projects with authentic assets & Illustrative UI dataflows -->
         </div>
       </div>
     </section>
+
+    <hr class="section-divider" />
+
+    <!-- =============================================
+         CERTIFICATIONS SECTION
+    ============================================= -->
+    <section class="section certifications-section" id="certifications" aria-label="Certifications & Workshops">
+      <div class="container">
+        <div class="section-header reveal">
+          <span class="section-eyebrow">04 / Official Credentials</span>
+          <h2 class="section-title">Certifications &amp; Workshops</h2>
+          <p class="section-subtitle">
+            Verified course completions and technical workshop participations backed by official documents.
+          </p>
+        </div>
+
+        <div class="certifications-grid" id="certifications-container">
+          <!-- Populated dynamically from PROFILE.certifications -->
+        </div>
+      </div>
+    </section>
+
+    <hr class="section-divider" />
 
     <!-- =============================================
          EDUCATION SECTION
     ============================================= -->
-    <section class="section education-section" id="education" aria-label="Education">
+    <section class="section education-section" id="education" aria-label="Academic Timeline">
       <div class="container">
         <div class="section-header reveal">
-          <span class="section-label">Education</span>
-          <h2 class="section-title">Academic Background</h2>
+          <span class="section-eyebrow">05 / Academic Background</span>
+          <h2 class="section-title">Education &amp; Credentials</h2>
+          <p class="section-subtitle">
+            Consistent academic excellence from secondary distinction to Year 1 B.Tech in CSE – AI/ML at VNR VJIET.
+          </p>
         </div>
 
-        <div class="education-timeline" id="education-timeline" aria-label="Education timeline">
-          <!-- Rendered dynamically by main.js from PROFILE.education -->
+        <div class="education-timeline-editorial" id="education-timeline-container">
+          <!-- Populated dynamically from PROFILE.education -->
         </div>
       </div>
     </section>
+
+    <hr class="section-divider" />
 
     <!-- =============================================
          ACHIEVEMENTS SECTION
     ============================================= -->
-    <section class="section achievements-section" id="achievements" aria-label="Achievements and certifications">
+    <section class="section achievements-section" id="achievements" aria-label="Achievements & Recognition">
       <div class="container">
         <div class="section-header reveal">
-          <span class="section-label">Achievements</span>
-          <h2 class="section-title">Participation &amp; Recognition</h2>
+          <span class="section-eyebrow">06 / Track Record</span>
+          <h2 class="section-title">Achievements &amp; Participation</h2>
+          <p class="section-subtitle">
+            Competitive programming ratings, hackathon participation, and technical challenge involvements.
+          </p>
         </div>
 
-        <div class="achievements-layout">
-          <div class="achievements-list-wrap reveal reveal-delay-1">
-            <h3 class="subsection-title">Highlights</h3>
-            <ul class="achievements-list" id="achievements-list" aria-label="Achievements list">
-              <!-- Rendered by main.js -->
-            </ul>
-          </div>
-          <div class="certifications-wrap reveal reveal-delay-2">
-            <h3 class="subsection-title">Certifications &amp; Workshops</h3>
-            <div class="certifications-list" id="certifications-list" aria-label="Certifications list">
-              <!-- Rendered by main.js -->
-            </div>
-          </div>
+        <div class="achievements-grid" id="achievements-container">
+          <!-- Populated dynamically from PROFILE.achievements -->
         </div>
       </div>
     </section>
+
+    <hr class="section-divider" />
 
     <!-- =============================================
          CODING PROFILES SECTION
     ============================================= -->
-    <section class="section profiles-section" id="profiles" aria-label="Coding profiles">
+    <section class="section profiles-section" id="profiles" aria-label="Coding & Social Profiles">
       <div class="container">
         <div class="section-header reveal">
-          <span class="section-label">Profiles</span>
+          <span class="section-eyebrow">07 / Platforms</span>
           <h2 class="section-title">Coding Profiles</h2>
+          <p class="section-subtitle">
+            Active developer presence across competitive programming and open-source repositories.
+          </p>
         </div>
 
-        <div class="profiles-grid" id="profiles-grid" aria-label="Coding profiles list">
-          <!-- Rendered by main.js -->
+        <div class="profiles-grid-editorial" id="profiles-grid-container">
+          <!-- Populated dynamically from PROFILE.codingProfiles -->
         </div>
       </div>
     </section>
+
+    <hr class="section-divider" />
 
     <!-- =============================================
-         RESUME SECTION
+         RESUME & DOCUMENT HUB
     ============================================= -->
-    <section class="section resume-section" id="resume" aria-label="Resume">
+    <section class="section resume-section" id="resume" aria-label="Resume and Official Documents">
       <div class="container">
-        <div class="resume-card reveal">
-          <div class="resume-card-text">
-            <span class="section-label">Resume</span>
-            <h2 class="resume-title">My Resume</h2>
-            <p class="resume-desc">
-              Download or view my resume to learn more about my academic background,
-              technical skills, and projects.
+        <div class="resume-editorial-card reveal">
+          <div>
+            <span class="section-eyebrow">08 / Verification Center</span>
+            <h2 class="resume-heading">Authoritative Resume &amp; Document Center</h2>
+            <p class="resume-summary-text">
+              Access the complete, up-to-date resume document detailing academic coursework at VNR VJIET (9.38 CGPA), technical skills, project architectures, and verified credentials.
             </p>
+            <div class="resume-primary-actions">
+              <a
+                href="assets/resume.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="btn btn-primary"
+                aria-label="View Resume PDF in new browser tab"
+              >
+                <span>View Resume</span>
+                <span class="btn-icon" aria-hidden="true">↗</span>
+              </a>
+              <a
+                href="assets/resume.pdf"
+                download="Akuthota_Abhipray_Resume.pdf"
+                class="btn btn-secondary"
+                aria-label="Download Resume PDF directly"
+              >
+                <span>Download Resume</span>
+                <span class="btn-icon" aria-hidden="true">↓</span>
+              </a>
+            </div>
           </div>
-          <div class="resume-actions">
-            <a
-              href="assets/resume.pdf"
-              target="_blank"
-              rel="noopener noreferrer"
-              class="btn btn-primary"
-              aria-label="View resume in new tab"
-            >View Resume</a>
-            <a
-              href="assets/resume.pdf"
-              download="Akuthota_Abhipray_Resume.pdf"
-              class="btn btn-secondary"
-              aria-label="Download resume PDF"
-            >Download Resume</a>
+
+          <!-- Document Hub Box -->
+          <div class="doc-hub-box">
+            <h3 class="doc-hub-title">Attached Verification Files</h3>
+            <div class="doc-hub-list" id="doc-hub-list">
+              <!-- Dynamically populated with direct links to Resume and all 3 Certificates -->
+            </div>
           </div>
         </div>
       </div>
     </section>
+
+    <hr class="section-divider" />
 
     <!-- =============================================
          CONTACT SECTION
     ============================================= -->
-    <section class="section contact-section" id="contact" aria-label="Contact">
+    <section class="section contact-section" id="contact" aria-label="Contact Information">
       <div class="container">
-        <div class="section-header reveal">
-          <span class="section-label">Contact</span>
-          <h2 class="section-title">Get in Touch</h2>
-        </div>
+        <span class="contact-eyebrow reveal">09 / Connect</span>
+        <h2 class="contact-title reveal reveal-delay-1">Let's build something together.</h2>
+        <p class="contact-subtitle reveal reveal-delay-2">
+          Open to software development opportunities, intelligent systems research, collaborative hackathons, and technical discussions.
+        </p>
 
-        <div class="contact-grid reveal reveal-delay-1">
-          <a href="mailto:25071A6673@vnrvjiet.in" class="contact-item" aria-label="Send email to Abhipray">
-            <span class="contact-icon" aria-hidden="true">✉</span>
-            <div class="contact-item-text">
-              <span class="contact-item-label">Email</span>
-              <span class="contact-item-value">25071A6673@vnrvjiet.in</span>
-            </div>
-          </a>
+        <div class="contact-grid-editorial reveal reveal-delay-3">
+          <!-- Email Card with Copy button -->
+          <div class="contact-card-editorial">
+            <span class="contact-card-label">Direct Email</span>
+            <a href="mailto:25071A6673@vnrvjiet.in" class="contact-card-value">
+              25071A6673@vnrvjiet.in
+            </a>
+            <button type="button" class="copy-email-btn" id="copy-email-btn" aria-label="Copy email address to clipboard">
+              Copy Email
+            </button>
+            <div class="sr-only" id="copy-feedback-region" aria-live="polite"></div>
+          </div>
 
-          <a href="tel:+917207145235" class="contact-item" aria-label="Call Abhipray">
-            <span class="contact-icon" aria-hidden="true">✆</span>
-            <div class="contact-item-text">
-              <span class="contact-item-label">Phone</span>
-              <span class="contact-item-value">+91 7207145235</span>
-            </div>
-          </a>
+          <!-- Phone Card -->
+          <div class="contact-card-editorial">
+            <span class="contact-card-label">Direct Phone</span>
+            <a href="tel:+917207145235" class="contact-card-value">
+              +91 72071 45235
+            </a>
+            <span class="contact-card-action">Available on mobile</span>
+          </div>
 
-          <a
-            href="https://www.linkedin.com/in/akuthota-abhipray-38a91638b"
-            class="contact-item"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="Visit Abhipray's LinkedIn profile (opens in new tab)"
-          >
-            <span class="contact-icon" aria-hidden="true">in</span>
-            <div class="contact-item-text">
-              <span class="contact-item-label">LinkedIn</span>
-              <span class="contact-item-value">akuthota-abhipray</span>
-            </div>
-          </a>
+          <!-- Location Card -->
+          <div class="contact-card-editorial">
+            <span class="contact-card-label">Location</span>
+            <p class="contact-card-value">
+              Hyderabad, Telangana, India
+            </p>
+            <span class="contact-card-action">VNR VJIET Campus Area</span>
+          </div>
 
-          <a
-            href="https://github.com/abhiprayakuthota1-pixel"
-            class="contact-item"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="Visit Abhipray's GitHub profile (opens in new tab)"
-          >
-            <span class="contact-icon" aria-hidden="true">GH</span>
-            <div class="contact-item-text">
-              <span class="contact-item-label">GitHub</span>
-              <span class="contact-item-value">abhiprayakuthota1-pixel</span>
-            </div>
-          </a>
-
-          <div class="contact-item contact-item--static" aria-label="Location">
-            <span class="contact-icon" aria-hidden="true">◎</span>
-            <div class="contact-item-text">
-              <span class="contact-item-label">Location</span>
-              <span class="contact-item-value">Hyderabad, Telangana, India</span>
-            </div>
+          <!-- LinkedIn Card -->
+          <div class="contact-card-editorial">
+            <span class="contact-card-label">Professional Network</span>
+            <a
+              href="https://www.linkedin.com/in/akuthota-abhipray-38a91638b"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="contact-card-value"
+              aria-label="View LinkedIn Profile (opens in new tab)"
+            >
+              akuthota-abhipray
+            </a>
+            <span class="contact-card-action">Connect on LinkedIn ↗</span>
           </div>
         </div>
       </div>
@@ -367,105 +641,111 @@
   </main>
 
   <!-- =============================================
-       FOOTER
+       SITE FOOTER
   ============================================= -->
   <footer class="site-footer" role="contentinfo">
     <div class="container">
       <div class="footer-inner">
-        <p class="footer-name">AKUTHOTA ABHIPRAY</p>
-        <p class="footer-tagline">Computer Science Student · AI/ML  · VNR VJIET</p>
-        <p class="footer-copy">© <span id="footer-year"></span> Akuthota Abhipray. Built with HTML, CSS &amp; JavaScript.</p>
+        <div class="footer-identity">
+          <span class="footer-name">AKUTHOTA ABHIPRAY</span>
+          <span>Computer Science Student · AI/ML · VNR VJIET</span>
+        </div>
+        <div>
+          <span>Designed with high-craft editorial standards. No audio. No video.</span>
+        </div>
+        <div>
+          <span>© 2026 Akuthota Abhipray. All rights reserved.</span>
+        </div>
       </div>
     </div>
   </footer>
 
   <!-- =============================================
-       CHATBOT WIDGET
+       AI CHATBOT WIDGET
   ============================================= -->
   <div id="chatbot-container" aria-live="polite">
-    <!-- Chatbot FAB (floating action button) -->
+    <!-- Chat FAB Button -->
     <button
+      type="button"
       class="chat-fab"
       id="chat-fab"
-      aria-label="Open chat assistant"
+      aria-label="Open portfolio AI assistant"
       aria-expanded="false"
       aria-controls="chat-window"
     >
       <span class="chat-fab-icon chat-fab-open" aria-hidden="true">
-        <!-- Chat bubble icon -->
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-          <path d="M21 15C21 15.5304 20.7893 16.0391 20.4142 16.4142C20.0391 16.7893 19.5304 17 19 17H7L3 21V5C3 4.46957 3.21071 3.96086 3.58579 3.58579C3.96086 3.21071 4.46957 3 5 3H19C19.5304 3 20.0391 3.21071 20.4142 3.58579C20.7893 3.96086 21 4.46957 21 5V15Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
         </svg>
       </span>
       <span class="chat-fab-icon chat-fab-close" aria-hidden="true" style="display:none;">
-        <!-- Close icon -->
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-          <line x1="18" y1="6" x2="6" y2="18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-          <line x1="6" y1="6" x2="18" y2="18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
         </svg>
       </span>
     </button>
 
-    <!-- Chat Window -->
+    <!-- Chat Window Dialog -->
     <div
       class="chat-window"
       id="chat-window"
       role="dialog"
-      aria-label="Portfolio chat assistant"
+      aria-label="Portfolio AI Assistant"
       aria-modal="false"
     >
       <div class="chat-header">
         <div class="chat-header-info">
           <span class="chat-avatar" aria-hidden="true">A</span>
           <div>
-            <p class="chat-header-name">Abhipray's Assistant</p>
-            <p class="chat-header-status">Ask me anything about the portfolio</p>
+            <h3 class="chat-header-name">Abhipray Assistant</h3>
+            <p class="chat-header-status">Factual portfolio queries</p>
           </div>
         </div>
         <button
+          type="button"
           class="chat-close-btn"
           id="chat-close-btn"
-          aria-label="Close chat"
+          aria-label="Close chat assistant"
         >
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-            <line x1="18" y1="6" x2="6" y2="18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-            <line x1="6" y1="6" x2="18" y2="18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
           </svg>
         </button>
       </div>
 
-      <div class="chat-messages" id="chat-messages" role="log" aria-label="Chat messages" aria-live="polite">
-        <!-- Messages inserted by chatbot.js -->
+      <div class="chat-messages" id="chat-messages" role="log" aria-live="polite">
+        <!-- Messages rendered by chatbot.js -->
       </div>
 
-      <div class="chat-quick-replies" id="chat-quick-replies" aria-label="Quick reply options">
-        <!-- Quick reply buttons inserted by chatbot.js -->
+      <div class="chat-quick-replies" id="chat-quick-replies" aria-label="Suggested quick questions">
+        <!-- Buttons rendered by chatbot.js -->
       </div>
 
-      <form class="chat-input-form" id="chat-input-form" aria-label="Send a message">
+      <form class="chat-input-form" id="chat-input-form" aria-label="Send message to assistant">
         <input
           type="text"
           class="chat-input"
           id="chat-input"
           placeholder="Ask about projects, skills, resume…"
           autocomplete="off"
-          aria-label="Message input"
-          maxlength="300"
+          aria-label="Your query"
+          maxlength="250"
         />
-        <button type="submit" class="chat-send-btn" aria-label="Send message">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-            <line x1="22" y1="2" x2="11" y2="13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            <polygon points="22 2 15 22 11 13 2 9 22 2" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+        <button type="submit" class="chat-send-btn" aria-label="Submit message">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="22" y1="2" x2="11" y2="13"></line>
+            <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
           </svg>
         </button>
       </form>
     </div>
   </div>
 
-  <!-- Scripts: profile.js must load first (data source for all other scripts) -->
+  <!-- Scripts: profile.js must load first -->
   <script src="js/profile.js"></script>
   <script src="js/main.js"></script>
   <script src="js/chatbot.js"></script>
-
 </body>
 </html>
