@@ -91,7 +91,7 @@ const PROFILE = {
       name: "Python",
       category: "programming",
       categoryName: "Programming",
-      description: "Primary language for ML, audio feature analysis, and data science workflows.",
+      description: "Used for data analysis, scripting, and project development.",
       projects: ["GrainGuard AI", "Seasonal Agriculture", "Car Market Trends"],
     },
     {
@@ -100,8 +100,8 @@ const PROFILE = {
       name: "C",
       category: "programming",
       categoryName: "Programming",
-      description: "Low-level systems programming, memory management, and algorithmic problem solving.",
-      projects: ["Core Problem Solving"],
+      description: "Used for programming fundamentals, problem solving, and coursework.",
+      projects: [],
     },
     {
       symbol: "C+",
@@ -109,7 +109,7 @@ const PROFILE = {
       name: "C++",
       category: "programming",
       categoryName: "Programming",
-      description: "Object-oriented systems, high-performance data structures, and competitive coding.",
+      description: "Used for object-oriented programming, data structures, and problem solving.",
       projects: ["Competitive Programming"],
     },
     {
@@ -118,7 +118,7 @@ const PROFILE = {
       name: "JavaScript",
       category: "programming",
       categoryName: "Programming",
-      description: "Modern ES6+ frontend development, interactive DOM rendering, and UI scripting.",
+      description: "MUsed for interactive web interfaces and frontend scripting.",
       projects: ["Portfolio Website", "Webcraft Workshop"],
     },
     {
@@ -127,7 +127,7 @@ const PROFILE = {
       name: "HTML",
       category: "programming",
       categoryName: "Programming",
-      description: "Semantic HTML5 structure, accessibility (WCAG), and responsive layouts.",
+      description: "Used to structure web pages and portfolio interfaces..",
       projects: ["Web Interfaces"],
     },
     {
@@ -136,8 +136,8 @@ const PROFILE = {
       name: "SQL",
       category: "programming",
       categoryName: "Programming",
-      description: "Relational database querying, structured data manipulation, and joins.",
-      projects: ["Data Management"],
+      description: "Used for basic relational database queries and data handling.",
+      projects: [],
     },
 
     // Core Concepts
@@ -160,15 +160,6 @@ const PROFILE = {
       projects: ["Software Architecture"],
     },
     {
-      symbol: "Ml",
-      number: "09",
-      name: "Machine Learning",
-      category: "core",
-      categoryName: "Core Concepts",
-      description: "Supervised learning, classification, Random Forest classifiers, feature engineering.",
-      projects: ["GrainGuard AI", "AI WEEK Challenge"],
-    },
-    {
       symbol: "Da",
       number: "10",
       name: "Data Analysis",
@@ -177,16 +168,6 @@ const PROFILE = {
       description: "Exploratory Data Analysis (EDA), statistical trends, hypothesis checking, and data cleansing.",
       projects: ["Seasonal Agriculture", "Car Market Trends"],
     },
-    {
-      symbol: "Fe",
-      number: "11",
-      name: "Frontend Development",
-      category: "core",
-      categoryName: "Core Concepts",
-      description: "Responsive design, CSS grid/flexbox, state management, and modern user experiences.",
-      projects: ["GrainGuard AI Dashboard", "Webcraft Workshop"],
-    },
-
     // Tools & Technologies
     {
       symbol: "Gh",
@@ -203,7 +184,7 @@ const PROFILE = {
       name: "VS Code",
       category: "tools",
       categoryName: "Tools & Technologies",
-      description: "Primary integrated development environment with extensions and terminal tooling.",
+      description: "Primary integrated development environment with extensions.",
       projects: ["All Software Projects"],
     },
     {
@@ -212,8 +193,8 @@ const PROFILE = {
       name: "Google Colab",
       category: "tools",
       categoryName: "Tools & Technologies",
-      description: "Cloud-hosted GPU/CPU Jupyter notebooks for training models and data exploration.",
-      projects: ["Machine Learning & EDA"],
+      description: "Cloud-hosted GPU/CPU Jupyter notebooks for data exploration.",
+      projects: ["Machine Learning "],
     },
     {
       symbol: "Kg",
@@ -225,21 +206,12 @@ const PROFILE = {
       projects: ["Kaggle Python Certification"],
     },
     {
-      symbol: "St",
-      number: "16",
-      name: "Streamlit",
-      category: "tools",
-      categoryName: "Tools & Technologies",
-      description: "Rapid interactive dashboard framework for Python data science & ML deployment.",
-      projects: ["GrainGuard AI"],
-    },
-    {
       symbol: "Pd",
       number: "17",
       name: "pandas",
       category: "tools",
       categoryName: "Tools & Technologies",
-      description: "High-performance data frames, cleaning, grouping, aggregations, and tabular analysis.",
+      description: "For data manipulation, cleaning, grouping, aggregations, and tabular analysis.",
       projects: ["GrainGuard AI", "Seasonal Agriculture", "Car Market Trends"],
     },
     {
@@ -248,17 +220,8 @@ const PROFILE = {
       name: "NumPy",
       category: "tools",
       categoryName: "Tools & Technologies",
-      description: "Multi-dimensional array computing, matrix operations, and vectorized math.",
+      description: "Used for arrays, numerical operations, and basic scientific computing.",
       projects: ["GrainGuard AI", "Seasonal Agriculture", "Car Market Trends"],
-    },
-    {
-      symbol: "Lb",
-      number: "19",
-      name: "Librosa",
-      category: "tools",
-      categoryName: "Tools & Technologies",
-      description: "Audio and acoustic signal processing: MFCC extraction, spectrograms, waveforms.",
-      projects: ["GrainGuard AI"],
     },
     {
       symbol: "Jn",
